@@ -134,7 +134,7 @@ Modified by MKA SOMRAT (KYAMC'22) Licensed by iSLam OS, 911*/
 { time: '08:00', duration: 90, classes: [
                 { batch: 'A', subject: 'Biochemistry Tutorial', venue: 'Tutorial Room', type: 'Tutorial' , teacher: 'Dr. Ashif Sir'},
                 { batch: 'B', subject: 'Biochemistry Tutorial', venue: 'Tutorial Room', type: 'Tutorial' , teacher: 'Dr. Oishee Maam'},
-                { batch: 'C', subject: 'Physiology Tutorial', venue: 'Tutorial Room', type: 'Tutorial' , teacher: 'Dr. Shahnuma Tammi Maam'},
+                { batch: 'C', subject: 'Biochemistry Tutorial', venue: 'Tutorial Room', type: 'Tutorial' , teacher: 'Dr. Jerry Maam'},
                 { batch: 'D', subject: 'Physiology Tutorial', venue: 'Tutorial Room', type: 'Tutorial' , teacher: 'Dr. Sohel Sir'},
                 { batch: 'E', subject: 'Physiology Tutorial', venue: 'Tutorial Room', type: 'Tutorial' , teacher: 'Dr. Mim Maam'}
                 
