@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Posts | KYAMC CW'26</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <!-- Fixed Navbar (Same as Home) -->
+    <nav class="medical-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <i class="fa-solid fa-staff-snake heartbeat-icon"></i> 
+                KYAMC <span class="cyan-text">CW'26</span>
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="posts.html" class="nav-link active">News</a></li>
+                <li class="nav-item"><a href="index.html#contact" class="nav-link btn-contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header & Search Section -->
+    <header class="posts-header">
+        <div class="container">
+            <h1 class="page-title"><i class="fa-solid fa-satellite-dish"></i> Posts Corner CW'26</h1>
+            <p class="page-subtitle">Search Archives & Latest Posts</p>
+            
+            <!-- SEARCH BAR -->
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Search for news, sports updates, or cultural events..." onkeyup="filterPosts()">
+                <div class="search-anim-border"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- All Posts Grid -->
+    <section class="section dark-bg">
+        <div class="container">
+            <div id="postsContainer" class="posts-grid">
+                <!-- Javascript will inject posts here -->
+            </div>
+            <!-- No Results Message -->
+            <div id="noResults" style="display:none; text-align:center; color:#666;">
+                <h3><i class="fa-solid fa-triangle-exclamation"></i> No Post Found</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Single Post Modal (Popup) -->
+    <div id="postModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <img id="modalImg" src="" alt="News Image">
+                <div class="modal-text">
+                    <span id="modalDate" class="modal-date"></span>
+                    <span id="modalCategory" class="modal-badge"></span>
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalContent"></p> <!-- Full text goes here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-bottom">
+            <p>&copy; <a href="https://mkasomrat.github.io" style="text-decoration: none; color: #555;">2026 Designed and Developed by مْ كِ أ سُمْرَتْ
+                </a></p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/script.js"></script>
+</body>
+</html>
