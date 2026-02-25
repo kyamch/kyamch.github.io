@@ -16,7 +16,7 @@ const postsData = [
         author: "Tanvir Ahmad Rakib",
         date: "Feb 20, 2026",
         category: "Sports",
-        image: "/img/various-sport-equipment-gear.webp",
+        image: "img/various-sport-equipment-gear.webp",
         short: "The new jerseys for Balaka, Progoti, Atlas, and Oikantik have been revealed today.",
         content: "The committee has unveiled the official kits for this year. Balaka will be donning the Royal Blue, Progoti in Emerald Green, Digonto in Fiery Red, and Dishari in Mystic Purple. The jerseys feature breathable fabric suitable for the intense April heat. Captains are requested to collect the team kits from the gym on ****."
     },
@@ -36,7 +36,7 @@ const postsData = [
         author: "Dr. Muhammad Erag Goshih",
         date: "Feb 10, 2026",
         category: "Reflection",
-        image: "/img/IMG_20260226_025412.webp",
+        image: "img/IMG_20260226_025412.webp",
         short: "“Ima'an (Faith) is both light and power. Yes, one who has acquired true Ima'an (Faith) can challenge the entire universe and by the strength of his Ima'an (Faith) he/she can survive the stress of various events.”",
         content: "This(attached) hadith brings our whole way of living into three simple commitments.Let us have taqwa of Allah wherever we are, not only in public worship, but in private choices, hidden thoughts, and quiet moments when no one is watching.It also keeps us realistic.We will slip.We will make mistakes.But we do not stay stuck in them.We follow a bad deed with a good one, quickly and sincerely, trusting that Allah allows good to erase what was wrong. Then it turns outward and makes the test practical: let us deal with people with beautiful character.Faith is not complete in isolation.It shows up in our tone, patience, and restraint.When this settles in us, we stop treating religion as only personal rituals and start living it as a steady way of being, with Allah in our hearts and mercy in our manners."
     },
@@ -46,7 +46,7 @@ const postsData = [
         author: "Rasmiyah Jahan Eva",
         date: "Feb 26, 2026",
         category: "Medical Science",
-        image: "img/IMG_20260226_030545_902.web",
+        image: "img/IMG_20260226_030545_902.webp",
         short: "Crying isn’t weakness — it’s a natural and healthy release of emotional stress and tension. Tears help the body reset, cleanse the eyes, relieve pressure, and promote both mental and physical balance.",
         content: "WHY is it healthy to cry? The truth is, crying is not only possible, but necessary. And there are plenty of various reasons for that: ✅  Most people feel a little better and happier after crying. All accumulated emotions and tension are released. ✅ Tears cleanse the body of harmful substances from stress. No coincidence, all these fluids have been created to get all the bad stuff out of us. Tears are part of the system. A vital and necessary part. Cleaning the nose. Especially relevant when mucus has accumulated in the nose and is making it hard to breathe. No need for medicine when there are tears.  ✅  Interestingly, tears can even lower your blood pressure.  ✅  Cleaning the eyes themselves from bacteria and dust."
     }
