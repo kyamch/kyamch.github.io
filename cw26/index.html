@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYAMC Cultural Week 2026 | CW'26</title>
+    <!--Search Engine Optimizatio--> <!-- Basic SEO -->
+<link rel="icon" type="image/png" href="img/favicon.png" sizes="96x96">
+<meta name="title" content=" KYAMC Cultural Week 2026 | KYAMCH" />
+<meta name="description" content="Welcome to the most anticipated week in the KYAMC Cultural Week 2026. This April, the campus transforms into a battleground of creativity and athleticism. From the surgical precision of cricket to the rhythmic heartbeat of arts, witness the unity of Batches 18 through 21 and our respected faculty." />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+<div id="toast-container"></div>
+    <!-- 1. Medical Preloader -->
+    <div id="preloader">
+        <div class="monitor-screen">
+            <div class="ecg-line"></div>
+            <div class="loading-text">INITIALIZING VITAL SIGNS...</div>
+        </div>
+    </div>
+
+    <!-- 2. Fixed Top Navigation -->
+    <nav class="medical-nav">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="#home" class="nav-logo">
+                <i class="fa-solid fa-staff-snake heartbeat-icon"></i> 
+                KYAMC <span class="cyan-text">CW'26</span>
+            </a>
+
+            <!-- Menu Items -->
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#events" class="nav-link">Events</a></li>
+                <li class="nav-item"><a href="#live-updates" class="nav-link"><i class="fa-solid fa-circle-dot live-dot"></i> Live Updates</a></li>
+                <li class="nav-item"><a href="posts.html" class="nav-link">Posts</a></li>
+                <li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
+            <!-- Update your Contact/Register link to this: -->
+<li class="nav-item"><a href="#" onclick="openRegModal()" class="nav-link btn-contact">Register</a></li>
+            </ul>
+
+            <!-- Mobile Hamburger -->
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+        
+        <!-- Scroll Progress Bar (Medical Monitor Style) -->
+        <div class="scroll-progress-container">
+            <div class="scroll-progress-bar" id="myBar"></div>
+        </div>
+    </nav>
+
+    <!-- 3. Hero Section -->
+    <header id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content fade-in-up">
+            <div class="badge">Batches KYA18 - KYA21 & Teachers</div>
+            <h1>CULTURAL WEEK <br><span class="glow-text">APRIL 2026</span></h1>
+            <p class="subtitle">Khwaja Yunus Ali Medical College and Hospital, Sirajganj</p>
+            
+            <div class="countdown-wrapper">
+                <div class="timer-box">
+                    <span id="days">00</span>
+                    <label>Days</label>
+                </div>
+                <div class="timer-box">
+                    <span id="hours">00</span>
+                    <label>Hours</label>
+                </div>
+                <div class="timer-box">
+                    <span id="minutes">00</span>
+                    <label>Mins</label>
+                </div>
+                <div class="timer-box">
+                    <span id="seconds">00</span>
+                    <label>Secs</label>
+                </div>
+            </div>
+            
+            <a href="#houses" class="btn-sci-fi">Explore Houses <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </header>
+
+    <!-- 4. About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-header scroll-element">
+                <h2><i class="fa-solid fa-microscope"></i> About The CW'26</h2>
+                <p>Anatomy of Art & Physiology of Sports</p>
+            </div>
+            <div class="about-content scroll-element">
+                <p>Welcome to the most anticipated week in the KYAMC Cultural Week 2026 (CW'26). This April, the campus transforms into a battleground of creativity and athleticism. From the surgical precision of cricket to the rhythmic heartbeat of arts, witness the unity of Batches 18 through 21 and our respected faculty.</p>
+            </div>
+            
+            
+            <!-- FEATURE: IDENTITY MATRIX (ID GENERATOR) -->
+<section id="id-generator" class="section dark-bg">
+    <div class="container">
+        <div class="section-header scroll-element">
+            <h2><i class="fa-solid fa-id-card-clip"></i> Identity Matrix</h2>
+            <p>Generate Your Holographic Gate Pass</p>
+        </div>
+        
+        <div class="generator-wrapper">
+            <!-- Input Form -->
+            <div class="gen-form scroll-element">
+                <h3>Input Data</h3>
+                <input type="text" id="idName" placeholder="Enter Name (e.g. Somrat)" oninput="updateCard()">
+                <select id="idBatch" onchange="updateCard()">
+                    <option value="KYA-18">Batch KYA-18</option>
+                    <option value="KYA-19">Batch KYA-19</option>
+                    <option value="KYA-20">Batch KYA-20</option>
+                    <option value="KYA-21">Batch KYA-21</option>
+                    <option value="Faculty">Faculty Member</option>
+                </select>
+                <select id="idHouse" onchange="updateCard()">
+                    <option value="balaka">House Balaka</option>
+                    <option value="progoti">House Progoti</option>
+                    <option value="Dishari">House Dishari</option>
+                    <option value="Diganto">House Diganto</option>
+                </select>
+                <div class="bio-scan-area">
+                    <p>Scan Fingerprint for Access:</p>
+                    <button class="scan-btn" onclick="runBioScan()">
+                        <i class="fa-solid fa-fingerprint"></i>
+                    </button>
+                    <div id="scan-result" class="scan-result">System Standby...</div>
+                </div>
+            </div>
+            
+            <!-- The Card Preview -->
+            <div class="card-preview scroll-element">
+                <div class="holo-card" id="holoCard">
+                    <div class="holo-header">
+                        <i class="fa-solid fa-staff-snake"> i'D</i> KYAMC CW'26
+                    </div>
+                    <div class="holo-body">
+                        <div class="holo-img">
+                            <i class="fa-solid fa-user-astronaut"></i>
+                        </div>
+                        <div class="holo-info">
+                            <h2 id="cardName">Student Name</h2>
+                            <p id="cardBatch">BATCH: KYA-18</p>
+                            <span id="cardHouse" class="house-badge balaka-bg">BALAKA</span>
+                        </div>
+                    </div>
+                    <div class="holo-footer">
+                        <div class="barcode"></div>
+                        <span>AUTH: GRANTED</span>
+                    </div>
+                    <div class="shine"></div>
+                </div>
+                <p class="instruction">Take a screenshot to save!</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURE: NEURO-LINK TICKER (Bottom Fixed) -->
+<div class="neuro-ticker">
+    <div class="ticker-label">LIVE FEED <i class="fa-solid fa-satellite-dish"></i></div>
+    <div class="ticker-content">
+        <span class="ticker-item">:: SYSTEM UPDATE: Cultural Week Registration closes in 48 hours ::</span>
+        <span class="ticker-item">:: SPORTS ALERT: Atlas House leads Football qualifiers ::</span>
+        <span class="ticker-item">:: WEATHER: Clear skies predicted for Opening Ceremony ::</span>
+        <span class="ticker-item">:: REMINDER: Bring your ID cards to the Auditorium ::</span>
+    </div>
+</div>
+            
+            
+            </br>
+            <hr><hr>
+                       </br> <div class="section-header scroll-element">
+                <h2><i class="fa-solid fa-home"></i> CW'26 House  Distribution</h2>
+                <p>Divided for Cultural & Sports</p>
+            </div>
+            
+            <!-- House Showcase -->
+            <div id="houses" class="house-grid">
+                <div class="house-card balaka scroll-element">
+                    <i class="fa-solid fa-dove"></i>
+                    <h3>Balaka</h3>
+                    <p>Soaring Spirits</p>
+                </div>
+                <div class="house-card progoti scroll-element">
+                    <i class="fa-solid fa-seedling"></i>
+                    <h3>Progoti</h3>
+                    <p>Evolution</p>
+                </div>
+                <div class="house-card atlas scroll-element">
+                    <i class="fa-solid fa-earth-asia"></i>
+                    <h3>Dishari</h3>
+                    <p>The Titans</p>
+                </div>
+                <div class="house-card oikantik scroll-element">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                    
+                    <h3>Digonto</h3>
+                    <p>Unity Core</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Events Section (Tabs) -->
+    <section id="events" class="section dark-bg">
+        <div class="container">
+            <div class="section-header scroll-element">
+                <h2><i class="fa-regular fa-calendar-check"></i> CW'26 Events </h2>
+                <p>Schedule for Cultural & Sports</p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab(event, 'Sports')"><i class="fa-solid fa-futbol"></i> Sports</button>
+                <button class="tab-btn" onclick="openTab(event, 'Cultural')"><i class="fa-solid fa-music"></i> Cultural</button>
+            </div>
+
+            <div id="Sports" class="tab-content active-tab">
+                <div class="event-item">
+                    <div class="event-time">Day 01</div>
+                    <div class="event-info">
+                        <h4>Cricket Tournament (Diganto vs Progoti)</h4>
+                        <p>Main Field | 09:00 AM</p>
+                    </div>
+                    
+                </div>
+                <div class="event-item">
+                    <div class="event-time">Day 02</div>
+                    <div class="event-info">
+                        <h4>Football Tournament (Balaka vs Progoti)</h4>
+                        <p>Main Field | 10:00 AM</p>
+                    </div>
+                    
+                </div> 
+                                <div class="event-item">
+                    <div class="event-time">Day 03</div>
+                    <div class="event-info">
+                        <h4>Table  Tennis Tournament (Progoti vs Progoti)</h4>
+                        <p>Main Field | 11:00 AM</p>
+                    </div>
+                    
+                </div>
+                                <div class="event-item">
+                    <div class="event-time">Day 04</div>
+                    <div class="event-info">
+                        <h4>Caroom Tournament (Balaka vs Progoti)</h4>
+                        <p>Main Field | 10:00 AM</p>
+                    </div>
+                    
+                </div>                <div class="event-item">
+                    <div class="event-time">Day 05</div>
+                    <div class="event-info">
+                        <h4>Indoor Tournament (Diganto vs Balaka)</h4>
+                        <p>Main Field | 08:00 AM</p>
+                    </div>
+                    
+                </div>
+                                <div class="event-item">
+                    <div class="event-time">Day 06</div>
+                    <div class="event-info">
+                        <h4>Outdoor Tournament (undefined)</h4>
+                        <p>Main Field | 02:00 PM</p>
+                    </div>
+                    
+                </div>
+                                <div class="event-item">
+                    <div class="event-time">Day 07</div>
+                    <div class="event-info">
+                        <h4>Final Tournament (Not selected)</h4>
+                        <p>Main Field | 11:00 AM</p>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div id="Cultural" class="tab-content">
+                <div class="event-item">
+                    <div class="event-time">Day 01</div>
+                    <div class="event-info">
+                        <h4>Quran, Hamd & Naat Competition</h4>
+                        <p>Auditorium | 06:00 PM</p>
+                    </div>
+                </div>
+                <div class="event-item">
+                    <div class="event-time">Day 02</div>
+                    <div class="event-info">
+                        
+                        <h4>Drama - Psychological Analysis</h4>
+                        <p>Open Stage | 07:00 PM</p>
+                    </div>
+                </div>
+                                <div class="event-item">
+                    <div class="event-time">Day 03</div>
+                    <div class="event-info">
+                        <h4>Undefined</h4>
+                        <p>Auditorium | 06:00 PM</p>
+                    </div>
+                </div>
+                <div class="event-item">
+                    <div class="event-time">Day 04</div>
+                    <div class="event-info">
+                        <h4>Undefined</h4>
+                        <p>Open Stage | 07:00 PM</p>
+                    </div>
+                </div>
+                                <div class="event-item">
+                    <div class="event-time">Day 05</div>
+                    <div class="event-info">
+                        <h4>Undefined</h4>
+                        <p>Auditorium | 06:00 PM</p>
+                    </div>
+                </div>
+                <div class="event-item">
+                    <div class="event-time">Day 06</div>
+                    <div class="event-info">
+                        <h4>Undefined</h4>
+                        <p>Open Stage | 07:00 PM</p>
+                    </div>
+                </div>
+                                <div class="event-item">
+                    <div class="event-time">Day 07</div>
+                    <div class="event-info">
+                        <h4>Rest in peace!</h4>
+                        <p>Main Field | 09:11 AM</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Live Updates (Leaderboard) -->
+    <section id="live-updates" class="section">
+        <div class="container">
+            <div class="section-header scroll-element">
+                <h2><i class="fa-solid fa-heart-pulse"></i> Live Updates</h2>
+                <p>Current House Standings (Points)</p>
+            </div>
+
+            <div class="leaderboard-container scroll-element">
+                <!-- Atlas -->
+                <div class="vital-row">
+                    <div class="house-name">Digonto</div>
+                    <div class="progress-track">
+                        <div class="progress-fill atlas-fill" style="width: 85%;"></div>
+                    </div>
+                    <div class="house-score">850 pts</div>
+                </div>
+                <!-- Balaka -->
+                <div class="vital-row">
+                    <div class="house-name">Balaka</div>
+                    <div class="progress-track">
+                        <div class="progress-fill balaka-fill" style="width: 70%;"></div>
+                    </div>
+                    <div class="house-score">700 pts</div>
+                </div>
+                <!-- Progoti -->
+                <div class="vital-row">
+                    <div class="house-name">Progoti</div>
+                    <div class="progress-track">
+                        <div class="progress-fill progoti-fill" style="width: 65%;"></div>
+                    </div>
+                    <div class="house-score">650 pts</div>
+                </div>
+                <!-- Oikantik -->
+                <div class="vital-row">
+                    <div class="house-name">Dishari</div>
+                    <div class="progress-track">
+                        <div class="progress-fill oikantik-fill" style="width: 60%;"></div>
+                    </div>
+                    <div class="house-score">600 pts</div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- FEATURE: PREDICTIVE ANALYTICS (POLLING) -->
+<section id="poll-section" class="section">
+    <div class="container">
+        <div class="poll-wrapper scroll-element">
+            <div class="poll-header">
+                <h3><i class="fa-solid fa-chart-pie"></i> Predictive Analytics</h3>
+                <p>Which House will secure the CW'26 Championship?</p>
+            </div>
+            
+            <div class="poll-body" id="poll-options">
+                <!-- Javascript will inject buttons here -->
+            </div>
+            
+            <div class="poll-results" id="poll-results" style="display:none;">
+                <!-- Javascript will inject bars here -->
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- 7. Posts Section -->
+    <section id="posts" class="section dark-bg">
+        <div class="container">
+            <div class="section-header scroll-element">
+                <h2><i class="fa-solid fa-newspaper"></i> Latest Posts & News</h2>
+                <p>Updates from the Administrators</p>
+            </div>
+            <div class="posts-grid">
+                <div class="post-card scroll-element">
+                    <div class="post-img" style="background-image: url('img/IMG_20260226_005307.webp');"></div>
+                    <div class="post-content">
+                       <span class="date">By Bayazid Hasan</span> || <span class="date">Feb 25, 2026</span> 
+                        <h4>
+                            Notice from Progoti House
+                            </h4>
+                        <p>
+As-Salāmu ‘Alaikum, tomorrow we will arrange a meeting at 7:00 pm, insha'Allah. 
+                            </p>
+<a href="posts.html?id=1" class="read-more">Read More</a>
+                    </div>
+                </div>
+                <div class="post-card scroll-element">
+                    <div class="post-img" style="background-image: url('img/various-sport-equipment-gear.webp');"></div>
+                    <div class="post-content">
+                       <span class="date">By Tanvir Ahmad Rakib</span> || <span class="date">Feb 20, 2026</span>
+                        <h4>Sports Jersey Reveal</h4>
+                        <p>The new jerseys for the 4 houses have been revealed today...</p>
+<a href="posts.html?id=2" class="read-more">Read More</a>
+                    </div>
+                </div>
+                <div class="post-card scroll-element">
+                    <div class="post-img" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=500&q=60');"></div>
+                    <div class="post-content">
+                        <span class="date">By  مْ كِ أ سُمْرَتْ</span> || <span class="date">Feb 15, 2026</span>
+                        <h4>
+                            Spiritual Harmony: Quran, Hamd & Naat Competition</h4>
+                        <p>
+Registration is now open for Tilawat, Hamd, and Naat competitions. Elevate your soul this Cultural Week. </p>
+                        
+                        
+                        <a href="posts.html?id=3" class="read-more">Read More</a>
+                        
+                    </div>
+                </div>
+            </div>
+                    <!-- Button to Full Gallery -->
+        <div style="text-align: center; margin-top: 40px;">
+            
+            <a href="posts.html" class="btn-sci-fi">
+            
+                View All Posts<i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+        </div>
+        </div>
+    </section>
+
+    <!-- 8. Gallery Section -->
+<!-- UPDATED GALLERY SECTION FOR HOMEPAGE -->
+<section id="gallery" class="section">
+    <div class="container">
+        <div class="section-header scroll-element">
+            <h2><i class="fa-solid fa-camera-retro"></i> Gallery</h2>
+            <p>Recent Captures</p>
+        </div>
+        
+        <!-- Small Preview Grid -->
+        <div class="gallery-grid">
+            <div class="gallery-item scroll-element">
+                <img src="img/IMG-20260225-WA0058.webp" alt="Football Team">
+            </div>
+            <div class="gallery-item scroll-element">
+                <img src="img/20250223_190530.webp" alt="Crowd">
+            </div>
+            <div class="gallery-item scroll-element">
+                <img src="img/20240419_150219.webp" alt="Lights">
+            </div>
+        </div>
+        
+        <!-- Button to Full Gallery -->
+        <div style="text-align: center; margin-top: 40px;">
+            
+            <a href="gallery.html" class="btn-sci-fi">
+                
+                View Gallery<i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURE: PRAYER SYNC & SHOUTBOX -->
+<section id="community-hub" class="section">
+    <div class="container">
+        <div class="hub-grid">
+            
+            <!-- 1. PRAYER SYNC WIDGET -->
+            <div class="hub-card scroll-element">
+                <div class="hub-header">
+                    <h3><i class="fa-solid fa-mosque"></i> Namaj Time Schedule</h3>
+                    <p>KYAMCH Central Mosque, Boy's Hall</p>
+                </div>
+                <div class="clock-display" id="clock-display">00:00:00</div>
+                <div class="prayer-list">
+                <div class="prayer-item" id="fajr"><span>Fajr</span> <span>05:25 AM</span></div>
+                <div class="prayer-item" id="dhuhr"><span>Dhuhr</span> <span>01:30 PM</span></div>
+                    <div class="prayer-item" id="asr"><span>Asr</span> <span>04:45 PM</span></div>
+                    <div class="prayer-item" id="maghrib"><span>Maghrib</span> <span>06:18 PM</span></div>
+                    <div class="prayer-item" id="isha"><span>Isha</span> <span>08:00 PM</span></div>
+                </div>
+                <div class="next-prayer-alert" id="next-prayer-msg">
+                    Next: Asr in 20 mins
+                </div>
+            </div>
+            
+                        <!-- 2. VOICE OF CAMPUS (SHOUTBOX) -->
+            <div class="hub-card scroll-element">
+                <div class="hub-header">
+                    <h3><i class="fa-solid fa-bullhorn"></i> Voice of Campus</h3>
+                    <p>Leave a shoutout for your Batch or House</p>
+                </div>
+                
+                <!-- Message Input -->
+                <div class="shout-input-area">
+                    <input type="text" id="shoutName" placeholder="Name (Optional)" maxlength="15">
+                    <input type="text" id="shoutMsg" placeholder="Write message..." maxlength="50">
+                    <button class="btn-send" onclick="postShout()"><i class="fa-solid fa-paper-plane"></i></button>
+                </div>
+                
+                <!-- Message Stream -->
+                <div class="shout-stream" id="shout-stream">
+                    <!-- JS will load messages here -->
+                    <div class="shout-bubble">
+                        <strong>Admin:</strong> Welcome to KYAMC CW'26! Keep the energy high! <span class="time">Just now</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- COMMITTEE / TEAM SECTION -->
+<section id="committee" class="section dark-bg">
+    <div class="container">
+        <div class="section-header scroll-element">
+            <h2><i class="fa-solid fa-users-viewfinder"></i> Adminstrative body</h2>
+            <p>Organizing Committee & Squad Leaders</p>
+        </div>
+        
+        <div class="team-grid">
+            
+            <!-- Member 1 (Teacher/Convener) -->
+            <div class="team-card scroll-element">
+                <div class="card-border-top"></div>
+                <div class="img-box">
+                    <img src="img/bayazid.webp" alt="Member">
+                    <div class="img-ring"></div>
+                </div>
+                <div class="member-info">
+<h3>Bayazid Hasan</h3>
+<span class="designation">House of Chief</span>
+                    <div class="medical-data">
+                        <span><i class="fa-solid fa-id-card"></i> Batch: KYA-18</span>
+                        <span><i class="fa-solid fa-fingerprint"></i> House: Progoti </span>
+                    </div>
+                </div>
+                <div class="social-overlay">
+<a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <!-- Member 2 (Student Leader) -->
+            <div class="team-card scroll-element">
+                <div class="card-border-top"></div>
+                <div class="img-box">
+                    <img src="img/blank.webp" alt="Member">
+                    <div class="img-ring"></div>
+                </div>
+                <div class="member-info">
+                    <h3>Mahdi Hasan</h3>
+                    <span class="designation">House of Chief</span>
+                    <div class="medical-data">
+                        <span><i class="fa-solid fa-id-card"></i> Batch: KYA-18</span>
+                        <span><i class="fa-solid fa-fingerprint"></i> House: Diganto </span>
+                    </div>
+                </div>
+                <div class="social-overlay">
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <!-- Member 3 -->
+            <div class="team-card scroll-element">
+                <div class="card-border-top"></div>
+                <div class="img-box">
+                    <img src="img/blank.webp" alt="Member">
+                    <div class="img-ring"></div>
+                </div>
+                <div class="member-info">
+                    <h3>Tanvir Ahmad Rakib</h3>
+                    <span class="designation">House of Chief</span>
+                    <div class="medical-data">
+                        <span><i class="fa-solid fa-id-card"></i> Batch: KYA-18</span>
+                        <span><i class="fa-solid fa-fingerprint"></i> House: Balaka </span>
+                    </div>
+                </div>
+                <div class="social-overlay">
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <!-- Member 4 -->
+            <div class="team-card scroll-element">
+                <div class="card-border-top"></div>
+                <div class="img-box">
+                    <img src="img/blank.webp" alt="Member">
+                    <div class="img-ring"></div>
+                </div>
+                <div class="member-info">
+                    <h3>Rony Miah</h3>
+                    <span class="designation">House of Chief</span>
+                    <div class="medical-data">
+                        <span><i class="fa-solid fa-id-card"></i> Batch: KYA-18</span>
+                        <span><i class="fa-solid fa-fingerprint"></i> House: Dishari </span>
+                    </div>
+                </div>
+                <div class="social-overlay">
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+<!-- FEATURE: CAMPUS ANATOMY (VENUE GUIDE) -->
+<section id="venue" class="section">
+    <div class="container">
+        <div class="section-header scroll-element">
+            <h2><i class="fa-solid fa-map-location-dot"></i> Campus Anatomy</h2>
+            <p>Target Locations & Venues</p>
+        </div>
+        
+        <div class="venue-grid">
+            <!-- Venue 1 -->
+            <div class="venue-card scroll-element">
+                <div class="venue-icon"><i class="fa-solid fa-building-columns"></i></div>
+                <div class="venue-info">
+                    <h3>Main Auditorium</h3>
+                    <p>Host: Cultural Events, Drama</p>
+                    <span class="status-badge occupied">Status: Occupied</span>
+                </div>
+                <div class="scan-line"></div>
+            </div>
+            
+            <!-- Venue 2 -->
+            <div class="venue-card scroll-element">
+                <div class="venue-icon"><i class="fa-solid fa-futbol"></i></div>
+                <div class="venue-info">
+                    <h3>Central Playground</h3>
+                    <p>Host: Football, Cricket, Outdoor Games,  Long Jump, High Jump, Marshall Arts</p>
+                    <span class="status-badge vacant">Status: Vacant</span>
+                </div>
+                <div class="scan-line"></div>
+            </div>
+            
+            <!-- Venue 3 -->
+            <div class="venue-card scroll-element">
+                <div class="venue-icon"><i class="fa-solid fa-mosque"></i></div>
+                <div class="venue-info">
+                    <h3>Mosque Complex</h3>
+                    <p>Host: Salah, Religious Meeting, Dawah, Lectures</p>
+                    <span class="status-badge vacant">Status: Preparing</span>
+                </div>
+                <div class="scan-line"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURE: DNA SCROLL TO TOP -->
+<div id="dna-top-btn" onclick="scrollToTop()">
+    <i class="fa-solid fa-dna fa-spin"></i>
+</div>
+
+<!-- CONTAINER FOR CONFETTI -->
+<canvas id="confetti-canvas"></canvas>
+
+    <!-- 9. Contact Footer -->
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>KYAMC CW'26</h3>
+                <p>The official cultural platform for Khwaja Yunus Ali Medical College, from batches KYA18 to KYA21.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p><i class="fa-solid fa-location-dot"></i> Enayetpur, Sirajganj, Bangladesh</p>
+                <p><i class="fa-solid fa-phone"></i> +880 1700-000000</p>
+                <p><i class="fa-solid fa-envelope"></i> <a href="mailto:kyamch@islamos.org" style="text-decoration: none; color: #888;"> admin@kyamch.cw</a></p>
+            </div>
+            <div class="footer-col">
+                <h3>Stay connected</h3>
+                <div class="social-links">
+                    <a href="https://kyamch.github.io/kya21">
+<i class="fa-solid fa-solidLarge fa-computer">‌</i></a>
+                    <a href="https://mkasomrat.github.io"><i class="fa-solid fa-code"></i></a>
+                    <a href="https://mkasomrat.github.io/bmi"><i class="fa-solid fa-dna"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <a href="https://mkasomrat.github.io" style="text-decoration: none; color: #555;">2026 Developed by Muhammad Kawsar Ahmad Somrat,  MKA SOMRAT (مْ كِ أ سُمْرَتْ)  </a></p>
+        </div>
+    </footer>
+<!-- FEATURE: REGISTRATION MODAL -->
+<div id="regModal" class="modal">
+    <div class="modal-content reg-content">
+        <span class="close-reg" onclick="closeRegModal()">&times;</span>
+        <div class="reg-header">
+            <h2><i class="fa-solid fa-file-medical"></i> Event Admission</h2>
+            <p>Participant Data Entry</p>
+        </div>
+        <form id="regForm" onsubmit="handleRegistration(event)">
+            <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" placeholder="Full Name" required>
+            </div>
+            <div class="input-row">
+                <div class="input-group">
+                    <i class="fa-solid fa-id-badge"></i>
+                    <select required>
+                        <option value="" disabled selected>Select Batch</option>
+                        <option value="kya18">KYA-18</option>
+                        <option value="kya19">KYA-19</option>
+                        <option value="kya20">KYA-20</option>
+                        <option value="kya21">KYA-21</option>
+                        <option value="teacher">Faculty</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <i class="fa-solid fa-hashtag"></i>
+                    <input type="number" placeholder="Roll No" required>
+                </div>
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-shield-halved"></i>
+                <select required>
+                    <option value="" disabled selected>Select House</option>
+                    <option value="balaka">Balaka</option>
+                    <option value="progoti">Progoti</option>
+                    <option value="Diganto">Diganto</option>
+                    <option value="Dishari">Dishari</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <i class="fa-solid fa-list-check"></i>
+                <select required>
+                    <option value="" disabled selected>Event Category</option>
+                    
+                    <option value="quran competition">Qur'an  Competition</option><option value="football">Football</option>
+                    <option value="cricket">Cricket</option>
+                    <option value="table tennis">Table Tennis</option>
+                                        <option value="long jump">Long Jump</option>
+                    <option value="high jump">High Jump</option>
+                    <option value="race 400 m">Race 400 m</option>
+                                        <option value="rely">Rely</option>
+                    <option value="marshall arts">Marshall Arts</option>
+                    <option value="cycling">Cycling</option>
+                                        <option value="volleyball">Volleyball</option>
+
+                    <option value="others">Others</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-sci-fi" style="width:100%;">Submit Data</button>
+        </form>
+    </div>
+</div>
+    <!-- Link to JS -->
+    <script src="script.js"></script>
+</body>
+</html>
