@@ -653,7 +653,7 @@ function updateClockAndPrayer() {
         { id: 'fajr', name: 'Fajr', time: '05:20' },
         { id: 'dhuhr', name: 'Dhuhr', time: '13:30' },
         { id: 'asr', name: 'Asr', time: '16:45' },
-        { id: 'maghrib', name: 'Maghrib', time: '18:18' },
+        { id: 'maghrib', name: 'Maghrib', time: '18:20' },
         { id: 'isha', name: 'Isha', time: '20:00' }
     ];
     
