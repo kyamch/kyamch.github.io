@@ -650,10 +650,10 @@ function updateClockAndPrayer() {
     // Standard Prayer Times for Sirajganj (Approximate for Feb/March)
     // In a real app, use an API (e.g., Aladhan API)
     const prayers = [
-        { id: 'fajr', name: 'Fajr', time: '05:20' },
+        { id: 'fajr', name: 'Fajr', time: '05:15' },
         { id: 'dhuhr', name: 'Dhuhr', time: '13:30' },
         { id: 'asr', name: 'Asr', time: '16:45' },
-        { id: 'maghrib', name: 'Maghrib', time: '18:20' },
+        { id: 'maghrib', name: 'Maghrib', time: '18:25' },
         { id: 'isha', name: 'Isha', time: '20:00' }
     ];
     
