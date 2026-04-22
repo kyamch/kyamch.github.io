@@ -167,7 +167,7 @@ function renderBreakdown() {
       <div class="item-row">
         <div>
           <div class="item-date">Item ${i+1} · ${display}</div>
-          <div class="item-absentees">${names}</div>
+          <div class="item-absentees">${rolls}</div>
         </div>
         <div class="item-amount">৳${amount}</div>
       </div>
