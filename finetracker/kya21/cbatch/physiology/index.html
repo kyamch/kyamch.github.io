@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Item Fine Tracker — KYA21 Batch C, Physiology</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <div class="crest">
+    <img src="logo.png" style="border-radius: 50%; height: 60px;">
+  </div>
+  <div class="header-text">
+    <h1>Item Fine <span>Tracker</span></h1>
+    <div class="header-meta">
+      <span class="badge gold">KYA21 · Batch C</span>
+      <span class="badge">2nd Year MBBS</span>
+      <span class="badge">Physiology Dept.</span>
+      <span class="badge">KYAMCH, Sirajgonj</span>
+    </div>
+  </div>
+</header>
+
+<div class="stats-bar">
+  <div class="stat-card">
+    <div class="stat-num gold" id="stat-total-students">0</div>
+    <div class="stat-label">Total Students</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num red" id="stat-due">0</div>
+    <div class="stat-label">Outstanding Fines</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num green" id="stat-collected">৳0</div>
+    <div class="stat-label">Total Collected</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num red" id="stat-pending">৳0</div>
+    <div class="stat-label">Total Pending</div>
+  </div>
+</div>
+
+<div class="notice">
+  <div class="notice-icon">📋</div>
+  <div class="notice-text">
+    <strong>Department Notice — Physiology, KYAMCH:</strong> Any student absent on an Item Examination day must pay a fine of <strong>৳50/-</strong> before the next item. Fines are collected by <strong>MKA SOMRAT (Roll-50)</strong>. Repeated non-compliance will be reported to the department.
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="table-section">
+    <div class="section-title">Student Register</div>
+
+    <div class="controls">
+      <input class="search-box" type="text" id="searchInput" placeholder="Search by name or roll…" oninput="filterTable()">
+      <button class="filter-btn active" id="filter-all"   onclick="setFilter('all', this)">All</button>
+      <button class="filter-btn"        id="filter-due"   onclick="setFilter('due', this)">Due</button>
+      <button class="filter-btn"        id="filter-clear" onclick="setFilter('clear', this)">Clear</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Roll</th>
+            <th>Student Name</th>
+            <th>Absences</th>
+            <th>Paid (৳)</th>
+            <th>Owed (৳)</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="studentTableBody"></tbody>
+      </table>
+      <div class="no-results" id="noResults">No students match your search.</div>
+    </div>
+  </div>
+
+  <div class="panel">
+
+    <div class="collector-card">
+      <div class="collector-label">Fine Collector (ক্যাশিয়ার)</div>
+      <div class="collector-name">MKA SOMRAT</div>
+      <div class="collector-roll">Roll No. 50 · KYA21-C</div>
+      <div class="collector-total">
+        <div class="tl">Total Collected</div>
+        <div class="tv" id="collectorTotal">৳0</div>
+      </div>
+    </div>
+
+    <div class="breakdown-card">
+      <h3>📅 Item-wise Breakdown</h3>
+      <div id="itemBreakdown"></div>
+    </div>
+
+    <div class="help-card">
+      <h3>How to Update Data</h3>
+      <p>
+Ouch! It's not your job! Stay focus in your study! To contact with me, visit here
+        <code> <a href="https://mkasomrat.github.io" style="text-decoration: none; color: var(--accent2); ">https://mkasomrat.github.io</a></code> 
+
+
+      </p>
+    </div>
+
+    <div class="help-card">
+      <h3>Announcement</h3>
+      <p>
+
+        As-Salāmu ‘Alaikum, Everyone!
+        
+        Alhamdulillah, I just developed it, KYAMCH Community - All in one space! Need your feedback. Your Gateway to Knowledge — Explore, Learn, & Research the Universe; Create Your Account Now at ➲ <code> <a href="https://kyamch.club" style="text-decoration: none; color: var(--accent2); ">https://kyamch.club</a></code><br>
+        <br>
+        <br>
+        <code>“Sabr + Shukr + Salah = inner Peace”</code><br><br>
+        
+      </p>
+    </div>
+  </div>
+</div>
+
+<footer>KYAMCH · Physiology Department · KYA21 Batch C · Item Examination Fine Tracker · Coded by Muhammad Kawsar Ahmad Somrat</footer>
+
+<script src="data.js"> </script>
+</body>
+</html>
