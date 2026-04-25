@@ -56,9 +56,9 @@ const records = [
   
    { roll: 44, type: 'absent', date: '2025-04-25' },
   { roll: 46, type: 'absent', date: '2025-04-25' },
-  { roll: 61, type: 'absent', date: '2025-04-25' },
-  { roll: 60, type: 'absent', date: '2025-04-25' },
   { roll: 52, type: 'absent', date: '2025-04-25' },
+  { roll: 60, type: 'absent', date: '2025-04-25' },
+  { roll: 61, type: 'absent', date: '2025-04-25' },
   
   
   
