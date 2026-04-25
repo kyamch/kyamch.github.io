@@ -50,7 +50,7 @@ const records = [
   // ── Item 1 — 2025-04-20 ──────────────────────────────
   { roll: 44, type: 'absent', date: '2025-04-20' },
   { roll: 46, type: 'absent', date: '2025-04-20' },
-  { roll: 61, type: 'absent', date: '2025-04-20' },
+
   
   // ── Item 2 — 2025-04-23 ──────────────────────────────
   
@@ -58,7 +58,7 @@ const records = [
   { roll: 46, type: 'absent', date: '2025-04-25' },
   { roll: 52, type: 'absent', date: '2025-04-25' },
   { roll: 60, type: 'absent', date: '2025-04-25' },
-  { roll: 61, type: 'absent', date: '2025-04-25' },
+  
   
   
   
