@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<header>
+<header style="position:relative;">
   <div class="crest">
     <img src="logo.png" style="border-radius: 50%; height: 60px;">
   </div>
@@ -22,6 +22,22 @@
       <span class="badge">KYAMCH, Sirajgonj</span>
     </div>
   </div>
+  <a href="admin.html" title="Admin Panel" style="
+    position: absolute;
+    top: 12px; right: 14px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    text-decoration: none;
+    opacity: 0.45;
+    transition: opacity 0.2s, background 0.2s;
+  " onmouseover="this.style.opacity='1';this.style.background='rgba(232,184,75,0.15)'"
+     onmouseout="this.style.opacity='0.45';this.style.background='rgba(255,255,255,0.06)'">
+    ⚙️
+  </a>
 </header>
 
 <div class="stats-bar">
@@ -97,15 +113,7 @@
       <div id="itemBreakdown"></div>
     </div>
 
-    <div class="help-card">
-      <h3>How to Update Data</h3>
-      <p>
-Ouch! It's not your job! Stay focus in your study! To contact with me, visit here
-        <code> <a href="https://mkasomrat.github.io" style="text-decoration: none; color: var(--accent2); ">https://mkasomrat.github.io</a></code> 
-
-
-      </p>
-    </div>
+    
 
     <div class="help-card">
       <h3>Announcement</h3>
