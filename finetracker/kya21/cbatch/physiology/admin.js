@@ -7,7 +7,7 @@ const FINE_AMOUNT         = 50;
 const STORAGE_KEY_STUDENTS = 'ft_students';
 const STORAGE_KEY_RECORDS  = 'ft_records';
 const STORAGE_KEY_AUTH     = 'ft_admin_auth';
-const ADMIN_PASSWORD       = 'kyamch2025';   // ← Change this password
+const ADMIN_PASSWORD       = 'Admin2357';   // ← Change this password
 
 // ── State ──────────────────────────────────────────────
 let students = [];
