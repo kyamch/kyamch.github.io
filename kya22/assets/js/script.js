@@ -8,11 +8,11 @@ Modified by MKA SOMRAT (KYAMC'21) Licensed by iSLam OS, 911*/
 
     // KYA-22 Batch Ranges (Roll 101–205)
     const batchRanges = {
-        'A': { start: 101, end: 121 },
-        'B': { start: 122, end: 142 },
-        'C': { start: 143, end: 163 },
-        'D': { start: 164, end: 184 },
-        'E': { start: 185, end: 205 }
+        'A': { start: 1, end: 21 },
+        'B': { start: 22, end: 42 },
+        'C': { start: 43, end: 63 },
+        'D': { start: 64, end: 84 },
+        'E': { start: 85, end: 105 }
     };
 
     const schedule = {
@@ -191,7 +191,7 @@ Modified by MKA SOMRAT (KYAMC'21) Licensed by iSLam OS, 911*/
         rollNumber = value;
         const rollNum = parseInt(value);
 
-        if (isNaN(rollNum) || rollNum < 101 || rollNum > 205) {
+        if (isNaN(rollNum) || rollNum < 1 || rollNum > 105) {
             document.getElementById('infoBox').style.display = 'none';
             batch = '';
             updateSchedule();
