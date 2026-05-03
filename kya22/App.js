@@ -24,21 +24,21 @@ const [currentDay, setCurrentDay] = useState('');
 const [todayClasses, setTodayClasses] = useState([]);
 
 // KYA-22 Batch Ranges (Roll 101–205)
-// Group A: 101–121, B: 122–142, C: 143–163, D: 164–184, E: 185–205
+// Group A: 1–21, B: 22–42, C: 43–63, D: 64–84, E: 85–105
 const batchRanges = {
-'A': { start: 101, end: 121 },
-'B': { start: 122, end: 142 },
-'C': { start: 143, end: 163 },
-'D': { start: 164, end: 184 },
-'E': { start: 185, end: 205 }
+'A': { start: 1, end: 21 },
+'B': { start: 22, end: 42 },
+'C': { start: 43, end: 63 },
+'D': { start: 64, end: 84 },
+'E': { start: 85, end: 105 }
 };
 
 const anatomyBatchRanges = {
-'A': { start: 101, end: 121 },
-'B': { start: 122, end: 142 },
-'C': { start: 143, end: 163 },
-'D': { start: 164, end: 184 },
-'E': { start: 185, end: 205 }
+'A': { start: 1, end: 21 },
+'B': { start: 22, end: 42 },
+'C': { start: 43, end: 63 },
+'D': { start: 64, end: 84 },
+'E': { start: 85, end: 105 }
 };
 
 // KYA-22 Schedule — effective 04.05.2026
