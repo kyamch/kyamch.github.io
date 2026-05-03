@@ -23,21 +23,21 @@ const App = () => {
   const [currentDay, setCurrentDay] = useState('');
   const [todayClasses, setTodayClasses] = useState([]);
 
-  // KYA-22 Batch Ranges (Roll 101–205)
+  // KYA-22 Batch Ranges (Roll 1–105)
   const batchRanges = {
-    'A': { start: 101, end: 121 },
-    'B': { start: 122, end: 142 },
-    'C': { start: 143, end: 163 },
-    'D': { start: 164, end: 184 },
-    'E': { start: 185, end: 205 }
+    'A': { start: 1, end: 21 },
+    'B': { start: 22, end: 42 },
+    'C': { start: 43, end: 63 },
+    'D': { start: 64, end: 84 },
+    'E': { start: 85, end: 105 }
   };
 
   const anatomyBatchRanges = {
-    'A': { start: 101, end: 121 },
-    'B': { start: 122, end: 142 },
-    'C': { start: 143, end: 163 },
-    'D': { start: 164, end: 184 },
-    'E': { start: 185, end: 205 }
+    'A': { start: 1, end: 21 },
+    'B': { start: 22, end: 42 },
+    'C': { start: 43, end: 63 },
+    'D': { start: 64, end: 84 },
+    'E': { start: 85, end: 105 }
   };
 
   // KYA-22 Schedule — effective 04.05.2026
@@ -235,7 +235,7 @@ const App = () => {
 
   const getBatchFromRoll = (roll) => {
     const rollNum = parseInt(roll);
-    if (isNaN(rollNum) || rollNum < 101 || rollNum > 205) return null;
+    if (isNaN(rollNum) || rollNum < 1 || rollNum > 105) return null;
     for (const [batchLetter, range] of Object.entries(batchRanges)) {
       if (rollNum >= range.start && rollNum <= range.end) return batchLetter;
     }
@@ -244,7 +244,7 @@ const App = () => {
 
   const getAnatomyBatchFromRoll = (roll) => {
     const rollNum = parseInt(roll);
-    if (isNaN(rollNum) || rollNum < 101 || rollNum > 205) return null;
+    if (isNaN(rollNum) || rollNum < 1 || rollNum > 105) return null;
     for (const [batchLetter, range] of Object.entries(anatomyBatchRanges)) {
       if (rollNum >= range.start && rollNum <= range.end) return batchLetter;
     }
@@ -365,10 +365,10 @@ const App = () => {
           <View style={styles.card}>
             <Text style={styles.cardTitle}>👤 Student Information</Text>
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Roll Number (101-205)</Text>
+              <Text style={styles.label}>Roll Number (01-105)</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Enter roll e.g. 101"
+                placeholder="Enter roll e.g. 50"
                 value={rollNumber}
                 onChangeText={handleRollNumberChange}
                 keyboardType="numeric"
