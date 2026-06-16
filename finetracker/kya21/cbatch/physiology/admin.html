@@ -613,10 +613,17 @@
         </div>
 
         <div class="card">
-          <div class="card-title">📅 Item Exam Date</div>
-          <div class="form-group" style="max-width:280px;">
-            <label class="form-label">Date</label>
-            <input class="form-input" type="date" id="absDate">
+          <div class="card-title">📅 Item Exam Details</div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;">
+            <div class="form-group" style="flex:1;min-width:200px;">
+              <label class="form-label">Topic / Card Name</label>
+              <input class="form-input" type="text" id="absTopic" placeholder="e.g. Reproductive Physiology" list="topicSuggestions">
+              <datalist id="topicSuggestions"></datalist>
+            </div>
+            <div class="form-group" style="max-width:200px;">
+              <label class="form-label">Date</label>
+              <input class="form-input" type="date" id="absDate">
+            </div>
           </div>
         </div>
 

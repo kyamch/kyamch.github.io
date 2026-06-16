@@ -117,7 +117,7 @@ function showPage(id, el) {
   document.getElementById('page-' + id).classList.add('active');
   if (el) el.classList.add('active');
   if (id === 'dashboard')   { renderDashTable(); renderStats(); }
-  if (id === 'add-absence') { renderChecklist(); }
+  if (id === 'add-absence') { _populateTopicSuggestions(); renderChecklist(); }
   if (id === 'add-payment') { renderDueTable(); populatePayDrop(); }
   if (id === 'records')     { renderRecordsTable(); }
   if (id === 'students')    { renderStudentsTable(); }
@@ -166,6 +166,17 @@ function renderDashTable() {
 }
 
 // ── Add Absence ──────────────────────────────────────────
+function _populateTopicSuggestions() {
+  const dl = document.getElementById('topicSuggestions');
+  if (!dl) return;
+  const topics = [...new Set(records.filter(r => r.topic).map(r => r.topic))];
+  dl.innerHTML = topics.map(t => `<option value="${t}">`).join('');
+  // Pre-fill with last used topic
+  const lastTopic = topics[topics.length - 1] || '';
+  const input = document.getElementById('absTopic');
+  if (input && !input.value) input.value = lastTopic;
+}
+
 function renderChecklist() {
   const container = document.getElementById('checklist');
   container.innerHTML = '';
@@ -203,8 +214,10 @@ function clearChecklist() {
 }
 
 async function saveAbsences() {
-  const date    = document.getElementById('absDate').value;
-  if (!date) { toast('Select a date first', 'error'); return; }
+  const date  = document.getElementById('absDate').value;
+  const topic = document.getElementById('absTopic').value.trim();
+  if (!date)  { toast('Select a date first', 'error');        return; }
+  if (!topic) { toast('Enter a topic/card name', 'error');    return; }
   const checked = [...document.querySelectorAll('#checklist .chk-item.checked')];
   if (checked.length === 0) { toast('No students selected', 'error'); return; }
 
@@ -212,7 +225,7 @@ async function saveAbsences() {
   checked.forEach(el => {
     const roll = parseInt(el.dataset.roll);
     if (records.some(r => r.roll === roll && r.type === 'absent' && r.date === date)) { skipped++; return; }
-    records.push({ roll, type: 'absent', date });
+    records.push({ roll, type: 'absent', date, topic });
     added++;
   });
 
