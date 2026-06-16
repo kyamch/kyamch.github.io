@@ -111,17 +111,19 @@ function confirmDialog(title, msg, onYes) {
 }
 
 // ── Tabs ─────────────────────────────────────────────────
-function switchTab(id, el) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  el.classList.add('active');
-  if (id === 'tab-dashboard')  { renderDashTable(); renderStats(); }
-  if (id === 'tab-absence')    { renderChecklist(); }
-  if (id === 'tab-payment')    { renderDueTable(); populatePayDrop(); }
-  if (id === 'tab-records')    { renderRecordsTable(); }
-  if (id === 'tab-students')   { renderStudentsTable(); }
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+  if (id === 'dashboard')   { renderDashTable(); renderStats(); }
+  if (id === 'add-absence') { renderChecklist(); }
+  if (id === 'add-payment') { renderDueTable(); populatePayDrop(); }
+  if (id === 'records')     { renderRecordsTable(); }
+  if (id === 'students')    { renderStudentsTable(); }
 }
+
+function switchTab(id, el) { showPage(id, el); }
 
 // ── Dashboard ────────────────────────────────────────────
 function initDashboard() {
