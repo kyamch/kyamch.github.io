@@ -1,74 +1,42 @@
 /* ═══════════════════════════════════════════════════════════
-   ADMIN.JS — Fine Tracker Admin Panel Logic
+   ADMIN.JS — Fine Tracker Admin Panel (Cloud DB version)
    KYA21 · Batch C · Physiology
 ═══════════════════════════════════════════════════════════ */
 
-const FINE_AMOUNT         = 50;
-const STORAGE_KEY_STUDENTS = 'ft_students';
-const STORAGE_KEY_RECORDS  = 'ft_records';
+const FINE_AMOUNT          = 50;
 const STORAGE_KEY_AUTH     = 'ft_admin_auth';
-const ADMIN_PASSWORD       = 'Admin2357';   // ← Change this password
+const ADMIN_PASSWORD       = 'Admin2357';   // ← Change this
 
-// ── State ──────────────────────────────────────────────
+// ── State ───────────────────────────────────────────────
 let students = [];
 let records  = [];
+let _saving  = false;
 
-// ── Storage helpers ────────────────────────────────────
-function loadData() {
-  students = JSON.parse(localStorage.getItem(STORAGE_KEY_STUDENTS) || '[]');
-  records  = JSON.parse(localStorage.getItem(STORAGE_KEY_RECORDS)  || '[]');
-
-  // Seed initial data if empty
-  if (students.length === 0) {
-    students = [
-      { roll: 43, name: "Sheikh Mahmmad Huzaif" },
-      { roll: 44, name: "Md. Julfikar Rahman Naeem" },
-      { roll: 45, name: "Basit Jeelani" },
-      { roll: 46, name: "Mahathir Mohammed" },
-      { roll: 47, name: "Meftahul Jannat Sova" },
-      { roll: 48, name: "Most. Moonwara Khatun Rimi" },
-      { roll: 49, name: "Peerzada Simra Shah" },
-      { roll: 50, name: "Md. Kawsar Ahmad Somrat" },
-      { roll: 51, name: "Al Nahian" },
-      { roll: 52, name: "Md. Mridul Sarker Raj" },
-      { roll: 53, name: "Bushra Hussain" },
-      { roll: 54, name: "Mst. Ummi Fatima" },
-      { roll: 55, name: "Rassiyah Jeelani" },
-      { roll: 56, name: "Md. Borhan Uddin Pranto" },
-      { roll: 57, name: "Md. Reyad Hossain" },
-      { roll: 58, name: "Umma Salma Surove" },
-      { roll: 59, name: "Tanviruzzaman" },
-      { roll: 60, name: "Md. Ekramul Azad" },
-      { roll: 61, name: "Jarin Tasnim Shuha" },
-      { roll: 62, name: "Md. Rifatuzzaman" },
-      { roll: 63, name: "Sheikh Jannat Ara Hakim Esha" },
-    ];
-    saveStudents();
-  }
-  if (records.length === 0) {
-    records = [
-      { roll: 44, type: 'absent', date: '2025-04-20' },
-      { roll: 46, type: 'absent', date: '2025-04-20' },
-      { roll: 44, type: 'absent', date: '2025-04-25' },
-      { roll: 46, type: 'absent', date: '2025-04-25' },
-      { roll: 52, type: 'absent', date: '2025-04-25' },
-      { roll: 60, type: 'absent', date: '2025-04-25' },
-    ];
-    saveRecords();
+// ── Persist helpers (cloud) ─────────────────────────────
+async function _persist(action) {
+  if (_saving) return;
+  _saving = true;
+  dbShowStatus('💾 Saving…');
+  try {
+    await dbSave({ students, records });
+    dbShowStatus('✅ Saved', 'ok');
+    if (action) action();
+  } catch (e) {
+    dbShowStatus('❌ Save failed! Check your Gist token.', 'error');
+    console.error(e);
+  } finally {
+    _saving = false;
   }
 }
 
-function saveStudents() { localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(students)); }
-function saveRecords()  { localStorage.setItem(STORAGE_KEY_RECORDS,  JSON.stringify(records));  }
-
-// ── Auth ───────────────────────────────────────────────
+// ── Auth ────────────────────────────────────────────────
 function isLoggedIn() { return sessionStorage.getItem(STORAGE_KEY_AUTH) === '1'; }
 
 function tryLogin() {
   const pw = document.getElementById('pwInput').value;
   if (pw === ADMIN_PASSWORD) {
     sessionStorage.setItem(STORAGE_KEY_AUTH, '1');
-    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('loginScreen').style.display    = 'none';
     document.getElementById('dashboardScreen').style.display = 'block';
     initDashboard();
   } else {
@@ -85,7 +53,7 @@ function logout() {
   location.reload();
 }
 
-// ── Helpers ────────────────────────────────────────────
+// ── Helpers ─────────────────────────────────────────────
 function getStudentData(roll) {
   const abs  = records.filter(r => r.roll === roll && r.type === 'absent').length;
   const paid = records.filter(r => r.roll === roll && r.type === 'paid').length * FINE_AMOUNT;
@@ -94,79 +62,75 @@ function getStudentData(roll) {
 }
 
 function getStatus(d) {
-  if (d.abs === 0) return 'clear';
-  if (d.owed <= 0) return 'paid';
+  if (d.abs === 0)               return 'clear';
+  if (d.owed <= 0)               return 'paid';
   if (d.paid > 0 && d.owed > 0) return 'partial';
   return 'due';
 }
 
-function getName(roll) {
-  const s = students.find(x => x.roll === roll);
-  return s ? s.name : `Roll ${roll}`;
+function statusPill(s) {
+  const cls = { clear: 'pill-clear', paid: 'pill-paid', due: 'pill-due', partial: 'pill-partial' }[s];
+  const lbl = { clear: 'No Fine',    paid: 'Paid ✓',   due: 'Due',     partial: 'Partial'       }[s];
+  return `<span class="status-pill ${cls}">${lbl}</span>`;
 }
 
-function todayStr() { return new Date().toISOString().split('T')[0]; }
+function getName(roll) {
+  return students.find(s => s.roll === roll)?.name || `Roll ${roll}`;
+}
+
+function todayStr() {
+  return new Date().toISOString().slice(0, 10);
+}
 
 function fmtDate(d) {
-  if (!d) return '—';
   return new Date(d + 'T00:00:00').toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
-function statusPill(status) {
-  const map = {
-    clear:   ['pill-clear',   'No Fine'],
-    paid:    ['pill-paid',    'Paid ✓'],
-    due:     ['pill-due',     'Due'],
-    partial: ['pill-partial', 'Partial'],
-  };
-  const [cls, label] = map[status] || ['pill-clear', status];
-  return `<span class="status-pill ${cls}">${label}</span>`;
-}
-
-// ── Toast ──────────────────────────────────────────────
+// ── Toast ────────────────────────────────────────────────
 function toast(msg, type = 'success') {
-  const el = document.createElement('div');
-  el.className = `toast toast-${type}`;
-  el.textContent = msg;
-  document.getElementById('toastContainer').appendChild(el);
-  setTimeout(() => el.classList.add('toast-out'), 2800);
-  setTimeout(() => el.remove(), 3200);
+  const t = document.createElement('div');
+  t.className = `toast toast-${type}`;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.classList.add('show'), 10);
+  setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3000);
 }
 
-// ── Confirm dialog ─────────────────────────────────────
-let _confirmCb = null;
-function confirmDialog(title, msg, cb) {
-  document.getElementById('dlgTitle').textContent = title;
-  document.getElementById('dlgMsg').textContent   = msg;
-  _confirmCb = cb;
-  document.getElementById('dlgBackdrop').classList.add('open');
-}
-function dlgConfirm() { document.getElementById('dlgBackdrop').classList.remove('open'); if (_confirmCb) _confirmCb(); }
-function dlgCancel()  { document.getElementById('dlgBackdrop').classList.remove('open'); }
-
-// ── Navigation ─────────────────────────────────────────
-function showPage(id, btn) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  if (btn) btn.classList.add('active');
-
-  if (id === 'dashboard')    { renderStats(); renderDashTable(); }
-  if (id === 'add-absence')  { renderChecklist(); document.getElementById('absDate').value = document.getElementById('absDate').value || todayStr(); }
-  if (id === 'add-payment')  { populatePayDrop(); document.getElementById('payDate').value = document.getElementById('payDate').value || todayStr(); renderDueTable(); }
-  if (id === 'records')      renderRecordsTable();
-  if (id === 'students')     renderStudentsTable();
+// ── Confirm dialog ───────────────────────────────────────
+function confirmDialog(title, msg, onYes) {
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmMsg').textContent   = msg;
+  document.getElementById('confirmOverlay').style.display = 'flex';
+  document.getElementById('confirmYes').onclick = () => {
+    document.getElementById('confirmOverlay').style.display = 'none';
+    onYes();
+  };
+  document.getElementById('confirmNo').onclick = () => {
+    document.getElementById('confirmOverlay').style.display = 'none';
+  };
 }
 
-// ── Init ───────────────────────────────────────────────
+// ── Tabs ─────────────────────────────────────────────────
+function switchTab(id, el) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+  if (id === 'tab-dashboard')  { renderDashTable(); renderStats(); }
+  if (id === 'tab-absence')    { renderChecklist(); }
+  if (id === 'tab-payment')    { renderDueTable(); populatePayDrop(); }
+  if (id === 'tab-records')    { renderRecordsTable(); }
+  if (id === 'tab-students')   { renderStudentsTable(); }
+}
+
+// ── Dashboard ────────────────────────────────────────────
 function initDashboard() {
-  loadData();
-  showPage('dashboard', document.querySelector('.nav-btn'));
+  document.getElementById('payDate').value = todayStr();
+  document.getElementById('absDate').value = todayStr();
+  renderStats();
+  renderDashTable();
 }
 
-// ══════════════════════════════════════════════════════════
-//  DASHBOARD
-// ══════════════════════════════════════════════════════════
 function renderStats() {
   const totalDue  = students.filter(s => getStudentData(s.roll).owed > 0).length;
   const collected = records.filter(r => r.type === 'paid').length * FINE_AMOUNT;
@@ -199,9 +163,7 @@ function renderDashTable() {
   });
 }
 
-// ══════════════════════════════════════════════════════════
-//  ADD ABSENCE
-// ══════════════════════════════════════════════════════════
+// ── Add Absence ──────────────────────────────────────────
 function renderChecklist() {
   const container = document.getElementById('checklist');
   container.innerHTML = '';
@@ -218,7 +180,7 @@ function renderChecklist() {
     `;
     const cb = div.querySelector('input');
     div.onclick = () => { cb.checked = !cb.checked; div.classList.toggle('checked', cb.checked); updateChkCount(); };
-    cb.onclick = e => e.stopPropagation();
+    cb.onclick  = e => e.stopPropagation();
     cb.onchange = () => { div.classList.toggle('checked', cb.checked); updateChkCount(); };
     container.appendChild(div);
   });
@@ -238,8 +200,8 @@ function clearChecklist() {
   updateChkCount();
 }
 
-function saveAbsences() {
-  const date = document.getElementById('absDate').value;
+async function saveAbsences() {
+  const date    = document.getElementById('absDate').value;
   if (!date) { toast('Select a date first', 'error'); return; }
   const checked = [...document.querySelectorAll('#checklist .chk-item.checked')];
   if (checked.length === 0) { toast('No students selected', 'error'); return; }
@@ -252,24 +214,23 @@ function saveAbsences() {
     added++;
   });
 
-  saveRecords();
-  if (added > 0) toast(`✅ ${added} absence${added > 1 ? 's' : ''} saved for ${fmtDate(date)}`);
-  if (skipped > 0) toast(`${skipped} duplicate(s) skipped`, 'error');
-  clearChecklist();
-  renderStats();
+  await _persist(() => {
+    if (added > 0)   toast(`✅ ${added} absence${added > 1 ? 's' : ''} saved for ${fmtDate(date)}`);
+    if (skipped > 0) toast(`${skipped} duplicate(s) skipped`, 'error');
+    clearChecklist();
+    renderStats();
+  });
 }
 
-// ══════════════════════════════════════════════════════════
-//  ADD PAYMENT
-// ══════════════════════════════════════════════════════════
+// ── Add Payment ──────────────────────────────────────────
 function populatePayDrop() {
   const sel = document.getElementById('payRoll');
   const cur = sel.value;
   sel.innerHTML = '<option value="">— Select student —</option>';
   [...students].sort((a,b) => a.roll - b.roll).forEach(s => {
-    const d = getStudentData(s.roll);
+    const d   = getStudentData(s.roll);
     const opt = document.createElement('option');
-    opt.value = s.roll;
+    opt.value       = s.roll;
     opt.textContent = `${String(s.roll).padStart(2,'0')} · ${s.name}` + (d.owed > 0 ? ` (Owes ৳${d.owed})` : '');
     sel.appendChild(opt);
   });
@@ -296,19 +257,20 @@ function updatePayPreview() {
   `;
 }
 
-function savePayment() {
+async function savePayment() {
   const roll = parseInt(document.getElementById('payRoll').value);
   const date = document.getElementById('payDate').value;
   if (!roll) { toast('Select a student', 'error'); return; }
-  if (!date) { toast('Select a date', 'error'); return; }
+  if (!date) { toast('Select a date', 'error');    return; }
   records.push({ roll, type: 'paid', date });
-  saveRecords();
-  toast(`✅ ৳${FINE_AMOUNT} payment saved for ${getName(roll)}`);
-  document.getElementById('payRoll').value = '';
-  document.getElementById('payPreview').innerHTML = '';
-  renderDueTable();
-  populatePayDrop();
-  renderStats();
+  await _persist(() => {
+    toast(`✅ ৳${FINE_AMOUNT} payment saved for ${getName(roll)}`);
+    document.getElementById('payRoll').value  = '';
+    document.getElementById('payPreview').innerHTML = '';
+    renderDueTable();
+    populatePayDrop();
+    renderStats();
+  });
 }
 
 function renderDueTable() {
@@ -336,19 +298,18 @@ function renderDueTable() {
   });
 }
 
-function quickPay(roll) {
+async function quickPay(roll) {
   const date = document.getElementById('payDate').value || todayStr();
   records.push({ roll, type: 'paid', date });
-  saveRecords();
-  toast(`✅ ৳${FINE_AMOUNT} recorded for ${getName(roll)}`);
-  renderDueTable();
-  populatePayDrop();
-  renderStats();
+  await _persist(() => {
+    toast(`✅ ৳${FINE_AMOUNT} recorded for ${getName(roll)}`);
+    renderDueTable();
+    populatePayDrop();
+    renderStats();
+  });
 }
 
-// ══════════════════════════════════════════════════════════
-//  ALL RECORDS
-// ══════════════════════════════════════════════════════════
+// ── All Records ──────────────────────────────────────────
 function renderRecordsTable() {
   const term   = (document.getElementById('recSearch')?.value || '').toLowerCase();
   const filter = document.getElementById('recTypeFilter')?.value || 'all';
@@ -382,32 +343,31 @@ function renderRecordsTable() {
   }
 }
 
-function deleteRecord(idx) {
+async function deleteRecord(idx) {
   const r = records[idx];
   if (!r) return;
   confirmDialog(
     'Delete Record',
     `Delete ${r.type} record for ${getName(r.roll)} on ${fmtDate(r.date)}?`,
-    () => {
+    async () => {
       records.splice(idx, 1);
-      saveRecords();
-      toast('Record deleted');
-      renderRecordsTable();
-      renderStats();
+      await _persist(() => {
+        toast('Record deleted');
+        renderRecordsTable();
+        renderStats();
+      });
     }
   );
 }
 
-// ══════════════════════════════════════════════════════════
-//  STUDENTS
-// ══════════════════════════════════════════════════════════
+// ── Students ─────────────────────────────────────────────
 function renderStudentsTable() {
   const tbody = document.getElementById('studentsBody');
   tbody.innerHTML = '';
   document.getElementById('studentCount').textContent = `(${students.length})`;
 
   [...students].sort((a,b) => a.roll - b.roll).forEach(s => {
-    const d = getStudentData(s.roll);
+    const d  = getStudentData(s.roll);
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td class="td-roll">${String(s.roll).padStart(2,'0')}</td>
@@ -424,54 +384,65 @@ function renderStudentsTable() {
   });
 }
 
-function updateName(roll, newName) {
+async function updateName(roll, newName) {
   const s = students.find(x => x.roll === roll);
   if (s && newName.trim() && newName.trim() !== s.name) {
     s.name = newName.trim();
-    saveStudents();
-    toast(`Updated: Roll ${roll}`);
+    await _persist(() => toast(`Updated: Roll ${roll}`));
   }
 }
 
-function addStudent() {
+async function addStudent() {
   const roll = parseInt(document.getElementById('newRoll').value);
   const name = document.getElementById('newName').value.trim();
-  if (!roll || roll < 1)               { toast('Enter a valid roll number', 'error'); return; }
-  if (!name)                           { toast('Enter student name', 'error'); return; }
+  if (!roll || roll < 1)                   { toast('Enter a valid roll number', 'error'); return; }
+  if (!name)                               { toast('Enter student name', 'error');        return; }
   if (students.some(s => s.roll === roll)) { toast(`Roll ${roll} already exists`, 'error'); return; }
   students.push({ roll, name });
   students.sort((a,b) => a.roll - b.roll);
-  saveStudents();
-  document.getElementById('newRoll').value = '';
-  document.getElementById('newName').value = '';
-  toast(`✅ ${name} (Roll ${roll}) added`);
-  renderStudentsTable();
-  renderStats();
-}
-
-function removeStudent(roll) {
-  const s = students.find(x => x.roll === roll);
-  const d = getStudentData(roll);
-  const extra = d.abs > 0 ? ` This student has ${d.abs} absence record(s) which will remain.` : '';
-  confirmDialog('Remove Student', `Remove ${s.name} (Roll ${roll})?${extra}`, () => {
-    students = students.filter(x => x.roll !== roll);
-    saveStudents();
-    toast('Student removed');
+  await _persist(() => {
+    document.getElementById('newRoll').value = '';
+    document.getElementById('newName').value = '';
+    toast(`✅ ${name} (Roll ${roll}) added`);
     renderStudentsTable();
     renderStats();
   });
 }
 
-// ── Boot ───────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', () => {
+async function removeStudent(roll) {
+  const s = students.find(x => x.roll === roll);
+  const d = getStudentData(roll);
+  const extra = d.abs > 0 ? ` This student has ${d.abs} absence record(s) which will remain.` : '';
+  confirmDialog('Remove Student', `Remove ${s.name} (Roll ${roll})?${extra}`, async () => {
+    students = students.filter(x => x.roll !== roll);
+    await _persist(() => {
+      toast('Student removed');
+      renderStudentsTable();
+      renderStats();
+    });
+  });
+}
+
+// ── Boot ─────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', async () => {
+  document.getElementById('pwInput')?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') tryLogin();
+  });
+
+  dbShowStatus('⏳ Loading data…');
+  try {
+    const data = await dbLoad();
+    students = data.students || [];
+    records  = data.records  || [];
+    dbShowStatus('✅ Data loaded', 'ok');
+  } catch (e) {
+    dbShowStatus('❌ Failed to load data. Check Gist config in db.js', 'error');
+    console.error(e);
+  }
+
   if (isLoggedIn()) {
     document.getElementById('loginScreen').style.display    = 'none';
     document.getElementById('dashboardScreen').style.display = 'block';
     initDashboard();
   }
-
-  // Allow Enter key on password input
-  document.getElementById('pwInput')?.addEventListener('keydown', e => {
-    if (e.key === 'Enter') tryLogin();
-  });
 });

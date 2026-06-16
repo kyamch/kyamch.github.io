@@ -1,59 +1,14 @@
 /* ═══════════════════════════════════════════════════════════
-   DATA.JS — Seeds localStorage on first load.
-   After this, all data is managed via admin.html
-   Do NOT add records here manually anymore.
+   DATA.JS — Public viewer, loads from universal cloud DB
 ═══════════════════════════════════════════════════════════ */
 
 const FINE_AMOUNT = 50;
-const STORAGE_KEY_STUDENTS = 'ft_students';
-const STORAGE_KEY_RECORDS  = 'ft_records';
 
-const _seedStudents = [
-  { roll: 43, name: "Sheikh Mahmmad Huzaif" },
-  { roll: 44, name: "Md. Julfikar Rahman Naeem" },
-  { roll: 45, name: "Basit Jeelani" },
-  { roll: 46, name: "Mahathir Mohammed" },
-  { roll: 47, name: "Meftahul Jannat Sova" },
-  { roll: 48, name: "Most. Moonwara Khatun Rimi" },
-  { roll: 49, name: "Peerzada Simra Shah" },
-  { roll: 50, name: "Md. Kawsar Ahmad Somrat" },
-  { roll: 51, name: "Al Nahian" },
-  { roll: 52, name: "Md. Mridul Sarker Raj" },
-  { roll: 53, name: "Bushra Hussain" },
-  { roll: 54, name: "Mst. Ummi Fatima" },
-  { roll: 55, name: "Rassiyah Jeelani" },
-  { roll: 56, name: "Md. Borhan Uddin Pranto" },
-  { roll: 57, name: "Md. Reyad Hossain" },
-  { roll: 58, name: "Umma Salma Surove" },
-  { roll: 59, name: "Tanviruzzaman" },
-  { roll: 60, name: "Md. Ekramul Azad" },
-  { roll: 61, name: "Jarin Tasnim Shuha" },
-  { roll: 62, name: "Md. Rifatuzzaman" },
-  { roll: 63, name: "Sheikh Jannat Ara Hakim Esha" },
-];
+// ── These are populated after dbLoad() ─────────────────
+let students = [];
+let records  = [];
 
-const _seedRecords = [
-  { roll: 44, type: 'absent', date: '2025-04-20' },
-  { roll: 46, type: 'absent', date: '2025-04-20' },
-  { roll: 44, type: 'absent', date: '2025-04-25' },
-  { roll: 46, type: 'absent', date: '2025-04-25' },
-  { roll: 52, type: 'absent', date: '2025-04-25' },
-  { roll: 60, type: 'absent', date: '2025-04-25' },
-];
-
-// Seed only if localStorage is empty (first visit)
-if (!localStorage.getItem(STORAGE_KEY_STUDENTS)) {
-  localStorage.setItem(STORAGE_KEY_STUDENTS, JSON.stringify(_seedStudents));
-}
-if (!localStorage.getItem(STORAGE_KEY_RECORDS)) {
-  localStorage.setItem(STORAGE_KEY_RECORDS, JSON.stringify(_seedRecords));
-}
-
-// Load live data from localStorage
-const students = JSON.parse(localStorage.getItem(STORAGE_KEY_STUDENTS));
-const records  = JSON.parse(localStorage.getItem(STORAGE_KEY_RECORDS));
-
-// ── Derived helpers ────────────────────────────────────
+// ── Derived helpers ─────────────────────────────────────
 function getStudentData(roll) {
   const abs  = records.filter(r => r.roll === roll && r.type === 'absent').length;
   const paid = records.filter(r => r.roll === roll && r.type === 'paid').length * FINE_AMOUNT;
@@ -62,16 +17,16 @@ function getStudentData(roll) {
 }
 
 function getStatus(d) {
-  if (d.abs === 0) return 'clear';
-  if (d.owed <= 0) return 'paid';
-  if (d.paid > 0 && d.owed > 0) return 'partial';
+  if (d.abs === 0)                      return 'clear';
+  if (d.owed <= 0)                      return 'paid';
+  if (d.paid > 0 && d.owed > 0)        return 'partial';
   return 'due';
 }
 
 const pillClass = s => ({ clear: 'pill-clear', paid: 'pill-paid', due: 'pill-due', partial: 'pill-partial' }[s]);
 const pillLabel = s => ({ clear: 'No Fine', paid: 'Paid ✓', due: 'Due', partial: 'Partial' }[s]);
 
-// ── Render table ───────────────────────────────────────
+// ── Render helpers ──────────────────────────────────────
 let currentFilter = 'all';
 let currentSearch = '';
 
@@ -136,7 +91,7 @@ function renderBreakdown() {
   }
 
   container.innerHTML = dates.map((date, i) => {
-    const rolls = byDate[date];
+    const rolls  = byDate[date];
     const amount = rolls.length * FINE_AMOUNT;
     const display = new Date(date + 'T00:00:00').toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
     return `
@@ -163,5 +118,18 @@ function filterTable() {
   renderTable();
 }
 
-renderTable();
-renderBreakdown();
+// ── Boot: load from cloud, then render ─────────────────
+(async () => {
+  dbShowStatus('⏳ Loading data…');
+  try {
+    const data = await dbLoad();
+    students = data.students || [];
+    records  = data.records  || [];
+    dbShowStatus('✅ Data loaded', 'ok');
+    renderTable();
+    renderBreakdown();
+  } catch (e) {
+    dbShowStatus('❌ Failed to load data. Check console.', 'error');
+    console.error(e);
+  }
+})();
