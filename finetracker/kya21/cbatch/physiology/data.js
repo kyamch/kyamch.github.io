@@ -101,7 +101,7 @@ function renderBreakdown() {
       const rolls   = dateMap[date];
       const amount  = rolls.length * FINE_AMOUNT;
       const display = new Date(date + 'T00:00:00').toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-      return \`
+      return `
         <div class="item-row">
           <div>
             <div class="item-date">Item \${i + 1} · \${display}</div>
@@ -109,12 +109,12 @@ function renderBreakdown() {
           </div>
           <div class="item-amount">৳\${amount}</div>
         </div>
-      \`;
+      `;
     }).join('');
 
     const totalAbsences = dates.reduce((s, d) => s + dateMap[d].length, 0);
 
-    return \`
+    return `
       <div class="breakdown-card" style="margin-bottom:14px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <h3 style="font-size:13.5px;color:var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;">
@@ -124,7 +124,7 @@ function renderBreakdown() {
         </div>
         \${itemsHtml}
       </div>
-    \`;
+    `;
   }).join('');
 }
 
