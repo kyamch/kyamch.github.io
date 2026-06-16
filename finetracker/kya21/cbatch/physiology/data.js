@@ -76,56 +76,56 @@ function updateStats() {
 }
 
 function renderBreakdown() {
-  const absentRecords = records.filter(r => r.type === 'absent');
-  const container = document.getElementById('itemBreakdown');
+  var absentRecords = records.filter(function(r) { return r.type === 'absent'; });
+  var container = document.getElementById('itemBreakdown');
 
   if (absentRecords.length === 0) {
     container.innerHTML = '<div style="font-size:12px;color:var(--muted);padding:8px 0;">No records yet.</div>';
     return;
   }
 
-  // Group by topic (preserve order of first appearance)
-  const topicOrder = [];
-  const byTopic = {};
-  absentRecords.forEach(r => {
-    const topic = r.topic || 'General';
+  var topicOrder = [];
+  var byTopic = {};
+  absentRecords.forEach(function(r) {
+    var topic = r.topic || 'General';
     if (!byTopic[topic]) { byTopic[topic] = {}; topicOrder.push(topic); }
     if (!byTopic[topic][r.date]) byTopic[topic][r.date] = [];
     byTopic[topic][r.date].push(r.roll);
   });
 
-  container.innerHTML = topicOrder.map(topic => {
-    const dateMap  = byTopic[topic];
-    const dates    = Object.keys(dateMap).sort();
-    const itemsHtml = dates.map((date, i) => {
-      const rolls   = dateMap[date];
-      const amount  = rolls.length * FINE_AMOUNT;
-      const display = new Date(date + 'T00:00:00').toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-      return `
-        <div class="item-row">
-          <div>
-            <div class="item-date">Item \${i + 1} · \${display}</div>
-            <div class="item-absentees">\${rolls.join(', ')}</div>
-          </div>
-          <div class="item-amount">৳\${amount}</div>
-        </div>
-      `;
-    }).join('');
+  var html = '';
+  topicOrder.forEach(function(topic) {
+    var dateMap = byTopic[topic];
+    var dates = Object.keys(dateMap).sort();
+    var totalAbsences = dates.reduce(function(s, d) { return s + dateMap[d].length; }, 0);
 
-    const totalAbsences = dates.reduce((s, d) => s + dateMap[d].length, 0);
+    var itemsHtml = '';
+    dates.forEach(function(date, i) {
+      var rolls  = dateMap[date];
+      var amount = rolls.length * FINE_AMOUNT;
+      var display = new Date(date + 'T00:00:00').toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+      itemsHtml += '<div class="item-row">'
+        + '<div>'
+        + '<div class="item-date">Item ' + (i + 1) + ' &middot; ' + display + '</div>'
+        + '<div class="item-absentees">' + rolls.join(', ') + '</div>'
+        + '</div>'
+        + '<div class="item-amount">&#2547;' + amount + '</div>'
+        + '</div>';
+    });
 
-    return `
-      <div class="breakdown-card" style="margin-bottom:14px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-          <h3 style="font-size:13.5px;color:var(--accent);font-family:'DM Sans',sans-serif;font-weight:600;">
-            📚 \${topic}
-          </h3>
-          <span style="font-size:11px;color:var(--muted);">\${dates.length} item\${dates.length !== 1 ? 's' : ''} · \${totalAbsences} absence\${totalAbsences !== 1 ? 's' : ''}</span>
-        </div>
-        \${itemsHtml}
-      </div>
-    `;
-  }).join('');
+    html += '<div class="breakdown-card" style="margin-bottom:14px;">'
+      + '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">'
+      + '<h3 style="font-size:13.5px;color:var(--accent);font-family:\'DM Sans\',sans-serif;font-weight:600;">'
+      + '&#128218; ' + topic + '</h3>'
+      + '<span style="font-size:11px;color:var(--muted);">'
+      + dates.length + ' ' + (dates.length !== 1 ? 'items' : 'item')
+      + ' &middot; ' + totalAbsences + ' ' + (totalAbsences !== 1 ? 'absences' : 'absence')
+      + '</span></div>'
+      + itemsHtml
+      + '</div>';
+  });
+
+  container.innerHTML = html;
 }
 
 function setFilter(f, btn) {
