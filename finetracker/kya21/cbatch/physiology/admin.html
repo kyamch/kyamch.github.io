@@ -659,6 +659,10 @@
               </select>
             </div>
             <div class="form-group">
+              <label class="form-label">Amount (৳)</label>
+              <input class="form-input" type="number" id="payAmount" value="50" min="1" placeholder="50">
+            </div>
+            <div class="form-group">
               <label class="form-label">Payment Date</label>
               <input class="form-input" type="date" id="payDate">
             </div>
@@ -702,7 +706,7 @@
           <div class="table-wrap">
             <table>
               <thead>
-                <tr><th>#</th><th>Roll</th><th>Name</th><th>Type</th><th>Date</th><th>Action</th></tr>
+                <tr><th>#</th><th>Roll</th><th>Name</th><th>Type</th><th>Amt</th><th>Date</th><th>Action</th></tr>
               </thead>
               <tbody id="recBody"></tbody>
             </table>
@@ -754,5 +758,41 @@
 
 <script src="db.js"></script>
 <script src="admin.js"></script>
+  <!-- Floating View Website Button -->
+  <a href="../../../index.html" target="_blank" id="fab-view" title="View Website">
+    <span>&#128279;</span> View Website
+  </a>
+
+  <!-- Edit Record Modal -->
+  <div id="editOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:10000;align-items:center;justify-content:center;">
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;width:90%;max-width:380px;">
+      <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:16px;">✏️ Edit Record</div>
+      <input type="hidden" id="editIdx">
+      <div class="form-group">
+        <label class="form-label">Type</label>
+        <select class="form-select" id="editType">
+          <option value="absent">Absent</option>
+          <option value="paid">Payment</option>
+        </select>
+      </div>
+      <div class="form-group" id="editTopicGroup">
+        <label class="form-label">Topic</label>
+        <input class="form-input" type="text" id="editTopic" placeholder="e.g. Reproductive Physiology">
+      </div>
+      <div class="form-group" id="editAmountGroup" style="display:none;">
+        <label class="form-label">Amount (৳)</label>
+        <input class="form-input" type="number" id="editAmount" min="1" placeholder="e.g. 75">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date</label>
+        <input class="form-input" type="date" id="editDate">
+      </div>
+      <div style="display:flex;gap:10px;margin-top:8px;">
+        <button class="btn btn-primary" style="flex:1;" onclick="saveEditRecord()">✅ Save</button>
+        <button class="btn" style="flex:1;" onclick="document.getElementById('editOverlay').style.display='none'">Cancel</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
