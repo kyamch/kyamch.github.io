@@ -88,16 +88,21 @@ function toast(msg, type) {
 }
 
 function confirmDialog(title, msg, onYes) {
-  document.getElementById('confirmTitle').textContent = title;
-  document.getElementById('confirmMsg').textContent   = msg;
-  document.getElementById('confirmOverlay').style.display = 'flex';
-  document.getElementById('confirmYes').onclick = () => {
-    document.getElementById('confirmOverlay').style.display = 'none';
-    onYes();
-  };
-  document.getElementById('confirmNo').onclick = () => {
-    document.getElementById('confirmOverlay').style.display = 'none';
-  };
+  document.getElementById('dlgTitle').textContent = title;
+  document.getElementById('dlgMsg').textContent    = msg;
+  document.getElementById('dlgBackdrop').classList.add('open');
+  window._dlgConfirmAction = onYes;
+}
+
+function dlgConfirm() {
+  document.getElementById('dlgBackdrop').classList.remove('open');
+  if (window._dlgConfirmAction) window._dlgConfirmAction();
+  window._dlgConfirmAction = null;
+}
+
+function dlgCancel() {
+  document.getElementById('dlgBackdrop').classList.remove('open');
+  window._dlgConfirmAction = null;
 }
 
 function showPage(id, el) {
